@@ -1,6 +1,7 @@
 package server;
 
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
@@ -9,13 +10,16 @@ import org.json.simple.parser.*;
 public class Parser {
   private JSONObject obj;
 
-  public Parser() throws Exception {
-    obj =
-        (JSONObject) new JSONParser().parse(new FileReader("src/main/java/server/questions.json"));
+  public Parser(Object obj){
+    this.obj = (JSONObject) obj;
   }
 
-  public Map<String, String> getTrueFalse() {
-    Map trueFalseQuestions = ((Map) obj.get("trueFalse"));
-    return trueFalseQuestions;
+  public Map<String, String> parseTrueFalse() {
+    return ((Map) obj.get("trueFalse"));
   }
+
+  public Map<String, String> parseMatching() {
+    return (Map) obj.get("matching");
+  }
+
 }
