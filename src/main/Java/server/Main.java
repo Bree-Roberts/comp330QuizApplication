@@ -24,6 +24,8 @@ public class Main {
     Parser parser = new Parser(obj);
     Output output = new Output(out);
 
+    WriteQues writeQues = new WriteQues();
+    writeQues.promptUser(in, out);
     Map<String, String> trueFalse = parser.parseTrueFalse();
     Map<String, String> matching = parser.parseMatching();
     Map<String, Map<String, String>> multipleChoice = parser.parseMultipleChoice();
