@@ -24,10 +24,10 @@ public class Output {
       while (!valid) {
         answer = in.nextLine(); // Get input
         if (answer.equalsIgnoreCase("true")
-                || answer.equalsIgnoreCase(
+            || answer.equalsIgnoreCase(
                 "false")) { // If the response is True or False than its valid
           if (answer.equalsIgnoreCase(
-                  ques.getValue())) { // Check if it matches the answer from json file
+              ques.getValue())) { // Check if it matches the answer from json file
             out.println("Correct!");
             score++;
           } else {
@@ -42,15 +42,18 @@ public class Output {
     return score;
   }
 
-  public int askMatching(Map<String, String> ques, Scanner in) { // Currently asks to match one at a time, cant do process of elimination like on paper. Could change this to allow for it
+  public int askMatching(
+      Map<String, String> ques,
+      Scanner
+          in) { // Currently asks to match one at a time, cant do process of elimination like on
+                // paper. Could change this to allow for it
     String answer;
     int score = 0;
     boolean valid;
     ArrayList<String> words = new ArrayList<>(ques.size());
     ArrayList<String> descriptions = new ArrayList<>(ques.size());
     for (Map.Entry<String, String> pair :
-            ques
-                    .entrySet()) { // Assign words and descriptions to separate arraylists so descriptions
+        ques.entrySet()) { // Assign words and descriptions to separate arraylists so descriptions
       // can be randomized
       words.add(pair.getKey());
       descriptions.add(pair.getValue());
@@ -68,8 +71,8 @@ public class Output {
         if (!ques.containsKey(answer)) { // If the questions map doesnt contain the key
           out.println("Please enter a valid response.");
         } else if (ques.get(answer)
-                .equalsIgnoreCase(
-                        description)) { // Checks the value associated to the key given against description
+            .equalsIgnoreCase(
+                description)) { // Checks the value associated to the key given against description
           // (Verified its in the map from first if)
           out.println("Correct!");
           score++;
@@ -103,7 +106,8 @@ public class Output {
       }
       while (!valid) {
         answer = in.nextLine();
-        if (letters.contains(answer.toUpperCase()) && letters.indexOf(answer.toUpperCase()) < options.length) {
+        if (letters.contains(answer.toUpperCase())
+            && letters.indexOf(answer.toUpperCase()) < options.length) {
           valid = true;
           if (ques.getValue().get(m.get(answer.toUpperCase())).equals("C")) {
             out.println("Correct");

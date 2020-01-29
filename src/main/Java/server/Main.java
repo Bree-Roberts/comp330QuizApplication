@@ -14,18 +14,22 @@ import java.util.Scanner;
 public class Main {
 
   public static void main(String[] args) throws IOException, ParseException {
-    Object obj = new JSONParser().parse(new FileReader("src/main/java/server/questions.json"));
+
     PrintStream out =
         new PrintStream(
             System
                 .out); // Allows to pass an output to other methods. We can change where the output
-                       // goes later. (System.out for now)
+    // goes later. (System.out for now)
     Scanner in = new Scanner(System.in);
+
+    WriteQues writeQues = new WriteQues();
+    String fileName = "Questions.json";
+    writeQues.promptUser(in, out, fileName);
+    Object obj = new JSONParser().parse(new FileReader(fileName));
+
     Parser parser = new Parser(obj);
     Output output = new Output(out);
 
-    WriteQues writeQues = new WriteQues();
-    writeQues.promptUser(in, out);
     Map<String, String> trueFalse = parser.parseTrueFalse();
     Map<String, String> matching = parser.parseMatching();
     Map<String, Map<String, String>> multipleChoice = parser.parseMultipleChoice();
@@ -44,6 +48,10 @@ public class Main {
     out.println(
         "You scored " + matchingScore + " out of " + matching.size() + " on the Matching section.");
     out.println(
-            "You scored " + multipleChoiceScore + " out of " + multipleChoice.size() + " on the Matching section.");
+        "You scored "
+            + multipleChoiceScore
+            + " out of "
+            + multipleChoice.size()
+            + " on the Matching section.");
   }
 }
