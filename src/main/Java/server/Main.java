@@ -26,10 +26,12 @@ public class Main {
 
     Map<String, String> trueFalse = parser.parseTrueFalse();
     Map<String, String> matching = parser.parseMatching();
+    Map<String, Map<String, String>> multipleChoice = parser.parseMultipleChoice();
 
     // Ask the questions and record score
     int trueFalseScore = output.askTrueFalse(trueFalse, in);
     int matchingScore = output.askMatching(matching, in);
+    int multipleChoiceScore = output.askMultipleChoice(multipleChoice, in);
 
     out.println(
         "You scored "
@@ -39,5 +41,7 @@ public class Main {
             + " on the True / False section.");
     out.println(
         "You scored " + matchingScore + " out of " + matching.size() + " on the Matching section.");
+    out.println(
+            "You scored " + multipleChoiceScore + " out of " + multipleChoice.size() + " on the Matching section.");
   }
 }

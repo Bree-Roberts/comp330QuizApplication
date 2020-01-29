@@ -21,4 +21,8 @@ public class Parser {
   public Map<String, String> parseMatching() {
     return (Map) obj.get("matching");
   }
+
+  public Map<String, Map<String, String>> parseMultipleChoice() {
+    return (Map) obj.get("multipleChoice");
+  }
 }

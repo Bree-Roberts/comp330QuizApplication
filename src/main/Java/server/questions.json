@@ -8,5 +8,11 @@
     "red" : "red",
     "blue" : "blue",
     "green" : "green"
+  },
+
+  "multipleChoice" : {
+    "Q1" : {"A. C" :  "C", "B" :  "I", "C" :  "I"},
+    "Q2" : {"A" :  "I", "B" :  "I", "C. C" :  "C"},
+    "Q3" : {"A" :  "I", "B. C" :  "C", "C" :  "I"}
   }
 }
