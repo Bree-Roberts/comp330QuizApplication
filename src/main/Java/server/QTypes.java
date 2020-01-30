@@ -1,5 +1,8 @@
 package server;
 
 public enum QTypes {
-    TRUE_FALSE, MATCHING, MULTIPLE_CHOICE, RANDOM;
+  TRUE_FALSE,
+  MATCHING,
+  MULTIPLE_CHOICE,
+  RANDOM;
 }

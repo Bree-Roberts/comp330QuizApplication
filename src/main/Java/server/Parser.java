@@ -10,7 +10,7 @@ import org.json.simple.parser.*;
 public class Parser {
   private JSONObject obj;
 
-  public Parser(Object obj){
+  public Parser(Object obj) {
     this.obj = (JSONObject) obj;
   }
 
@@ -22,4 +22,7 @@ public class Parser {
     return (Map) obj.get("matching");
   }
 
+  public Map<String, Map<String, String>> parseMultipleChoice() {
+    return (Map) obj.get("multipleChoice");
+  }
 }
