@@ -47,12 +47,8 @@ public class Output {
   private Map.Entry<String, Map.Entry<String, String>> getTrueFalse() {
     ArrayList<Map.Entry<String, String>> entries = new ArrayList<>(trueFalse.entrySet());
     if (tfc < entries.size()) {
-      for (int i = 0; i < entries.size(); i++) {
-        if (i == tfc) {
-          tfc++;
-          return new MyEntry<>("trueFalse", entries.get(i));
-        }
-      }
+      tfc++;
+      return new MyEntry<>("trueFalse", entries.get(tfc - 1));
     }
     return null;
   }
@@ -68,12 +64,8 @@ public class Output {
     ArrayList<Map.Entry<String, Map<String, String>>> entries =
         new ArrayList<>(multipleChoice.entrySet());
     if (mcc < entries.size()) {
-      for (int i = 0; i < entries.size(); i++) {
-        if (i == mcc) {
-          mcc++;
-          return new MyEntry<>("multipleChoice", entries.get(i));
-        }
-      }
+      mcc++;
+      return new MyEntry<>("multipleChoice", entries.get(mcc - 1));
     }
     return null;
   }
