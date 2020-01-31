@@ -11,8 +11,9 @@ import java.util.*;
 
 public class Output {
   private PrintStream out;
-  private Map<String, String> trueFalse, matching;
-  private Map<String, Map<String, String>> multipleChoice;
+  private ArrayList<Map.Entry<String, String>> trueFalseEntries;
+  private Map<String, String> matching;
+  private ArrayList<Map.Entry<String, Map<String, String>>> multipleChoiceEntries;
   private int tfc, mc, mcc;
 
   public Output(String fileName) throws IOException, ParseException {
@@ -20,11 +21,11 @@ public class Output {
     Object obj = new JSONParser().parse(new FileReader(fileName));
     Parser parser = new Parser(obj);
     tfc = 0;
-    trueFalse = parser.parseTrueFalse();
+    trueFalseEntries = new ArrayList<>(parser.parseTrueFalse().entrySet());
     mc = 0;
     matching = parser.parseMatching();
     mcc = 0;
-    multipleChoice = parser.parseMultipleChoice();
+    multipleChoiceEntries = new ArrayList<>(parser.parseMultipleChoice().entrySet());
   }
 
   public Map.Entry getQuestion(QTypes type) {
@@ -36,6 +37,14 @@ public class Output {
       case MULTIPLE_CHOICE:
         return getMultipleChoice();
       case RANDOM:
+        switch ((int) (Math.random() * 3) + 1) {
+          case 1:
+            return getTrueFalse();
+          case 2:
+            return getMatching();
+          case 3:
+            return getMultipleChoice();
+        }
         return null;
       default:
         System.out.println("Enum error");
@@ -45,10 +54,10 @@ public class Output {
   }
 
   private Map.Entry<String, Map.Entry<String, String>> getTrueFalse() {
-    ArrayList<Map.Entry<String, String>> entries = new ArrayList<>(trueFalse.entrySet());
-    if (tfc < entries.size()) {
+
+    if (tfc < trueFalseEntries.size()) {
       tfc++;
-      return new MyEntry<>("trueFalse", entries.get(tfc - 1));
+      return new MyEntry<>("trueFalse", trueFalseEntries.get(tfc - 1));
     }
     return null;
   }
@@ -61,11 +70,9 @@ public class Output {
   }
 
   private Map.Entry<String, Map.Entry<String, Map<String, String>>> getMultipleChoice() {
-    ArrayList<Map.Entry<String, Map<String, String>>> entries =
-        new ArrayList<>(multipleChoice.entrySet());
-    if (mcc < entries.size()) {
+    if (mcc < multipleChoiceEntries.size()) {
       mcc++;
-      return new MyEntry<>("multipleChoice", entries.get(mcc - 1));
+      return new MyEntry<>("multipleChoice", multipleChoiceEntries.get(mcc - 1));
     }
     return null;
   }
