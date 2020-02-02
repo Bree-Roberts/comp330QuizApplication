@@ -10,7 +10,7 @@ import org.json.simple.parser.*;
 public class Parser {
   private JSONObject obj;
 
-  public Parser(Object obj){
+  public Parser(Object obj) {
     this.obj = (JSONObject) obj;
   }
 
@@ -21,5 +21,4 @@ public class Parser {
   public Map<String, String> parseMatching() {
     return (Map) obj.get("matching");
   }
-
 }
