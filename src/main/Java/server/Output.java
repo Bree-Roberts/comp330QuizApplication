@@ -31,19 +31,22 @@ public class Output {
   public Map.Entry getQuestion(QTypes type) {
     switch (type) {
       case TRUE_FALSE:
-        return getTrueFalse();
+        tfc++;
+        return getRequestedQuestion(tfc, trueFalseEntries, "trueFalse");
       case MATCHING:
-        return getMatching();
+        mc++;
+        return getRequestedQuestion(mc, matchingEntries, "matching");
       case MULTIPLE_CHOICE:
-        return getMultipleChoice();
+        mcc++;
+        return getRequestedQuestion(mcc, matchingEntries, "multipleChoice");
       case RANDOM:
         switch ((int) (Math.random() * 3) + 1) {
           case 1:
-            return getTrueFalse();
+            return getQuestion(QTypes.TRUE_FALSE);
           case 2:
-            return getMatching();
+            return getQuestion(QTypes.MATCHING);
           case 3:
-            return getMultipleChoice();
+            return getQuestion(QTypes.MULTIPLE_CHOICE);
         }
         return null;
       default:
@@ -53,28 +56,9 @@ public class Output {
     return null;
   }
 
-  private Map.Entry<String, Map.Entry<String, String>> getTrueFalse() {
-    if (tfc < trueFalseEntries.size()) {
-      tfc++;
-      return new MyEntry("trueFalse", trueFalseEntries.get(tfc - 1));
-    }
-    return null;
-  }
-
-  private Map.Entry<String, Map.Entry<ArrayList<String>, ArrayList<String>>> getMatching() {
-    // TODO add support for multiple matching sections
-    if (mc < matchingEntries.size()) {
-      mc++;
-      System.out.println(matchingEntries);
-      return new MyEntry("matching", matchingEntries.get(mc - 1));
-    }
-    return null;
-  }
-
-  private Map.Entry<String, Map.Entry<String, Map<String, String>>> getMultipleChoice() {
-    if (mcc < multipleChoiceEntries.size()) {
-      mcc++;
-      return new MyEntry("multipleChoice", multipleChoiceEntries.get(mcc - 1));
+  private Map.Entry getRequestedQuestion(int counter, ArrayList entries, String type) {
+    if (counter - 1 < entries.size()) {
+      return new MyEntry("trueFalse", entries.get(counter - 1));
     }
     return null;
   }
