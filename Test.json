@@ -5,8 +5,30 @@
   },
 
   "matching" : {
-    "red" : "red",
-    "blue" : "blue",
-    "green" : "green"
+    "S1" : {
+      "red": "red",
+      "blue": "blue",
+      "green": "green"
+    },
+    "S2" : {
+      "yellow" : "yellow",
+      "orange" : "orange",
+      "black" : "black"
+    }
+  },
+
+  "multipleChoice" : {
+    "Q1" : {
+      "A" : "C",
+      "B" : "I",
+      "C" : "I",
+      "D" : "I",
+      "E" : "I"
+    },
+    "Q2" : {
+      "A" : "I",
+      "B" : "C",
+      "C" : "I"
+    }
   }
 }
