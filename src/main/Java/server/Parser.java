@@ -11,6 +11,7 @@ class Parser {
   private JSONObject obj;
 
   Parser(Object obj) {
+
     this.obj = (JSONObject) obj;
   }
 
@@ -21,7 +22,7 @@ class Parser {
   Map parseMatching() {
     return (Map) obj.get("matching");
   }
-
+  
   Map parseMultipleChoice() {
     return (Map) obj.get("multipleChoice");
   }
