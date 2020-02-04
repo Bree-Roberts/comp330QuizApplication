@@ -1,0 +1,28 @@
+{
+  "trueFalse" : {
+    "this is true" : "true",
+    "this is false" : "false"
+  },
+  "matching" : {
+    "set one" : {
+      "green" : "green",
+      "red" : "red"
+    },
+    "set two" : {
+      "yellow" : "yellow",
+      "blue" : "blue"
+    }
+  },
+  "multipleChoice" : {
+    "question one" : {
+      "A" : "C",
+      "B" : "I",
+      "C" : "I"
+    },
+    "question two" : {
+      "A" : "I",
+      "B" : "C",
+      "C" : "I"
+    }
+  }
+}
