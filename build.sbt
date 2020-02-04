@@ -1,4 +1,4 @@
-name := "shapes-visitor-java-sbt"
+name := "comp330QuizApplication"
 
 version := "0.1"
 
