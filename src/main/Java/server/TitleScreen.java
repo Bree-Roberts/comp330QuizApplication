@@ -31,6 +31,12 @@ public class TitleScreen {
   }
 
   public static void setTakeButton(Stage primaryStage) {
-    take.setOnAction(e -> primaryStage.setScene(MainWindow.createMainWindow()));
+    take.setOnAction(e -> startTest(primaryStage));
+  }
+
+  public static void startTest(Stage primaryStage) {
+
+    primaryStage.setScene(MainWindow.createMainWindow());
+    UserInputs.getNextQuestion();
   }
 }

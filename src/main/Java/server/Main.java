@@ -30,14 +30,10 @@ public class Main extends Application {
     launch(args);
   }
 
-  // Allows to pass an output to other methods. We can change where the output goes
-  // later.(System.out for now)
-  private Output output = new Output("Test.json");
-
-  public Main() throws Exception {}
-  // UI Elements
-
   public void start(Stage primaryStage) throws Exception {
+
+    QProcessor tester =
+        new QProcessor("C:/Users/Brian/git/comp330QuizApplication/TestQProcessor.json");
 
     // Quiz Elements
     primaryStage.setTitle("Quiz Game");

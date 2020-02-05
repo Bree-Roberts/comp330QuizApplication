@@ -3,32 +3,27 @@
     "this is true" : "true",
     "this is false" : "false"
   },
-
-  "matching" : {
-    "S1" : {
-      "red": "red",
-      "blue": "blue",
-      "green": "green"
+   "matching" : {
+    "set one" : {
+      "green" : "green",
+      "red" : "red"
     },
-    "S2" : {
+    "set two" : {
       "yellow" : "yellow",
-      "orange" : "orange",
-      "black" : "black"
+      "blue" : "blue"
     }
   },
-
   "multipleChoice" : {
-    "Q1" : {
+    "question one" : {
       "A" : "C",
       "B" : "I",
-      "C" : "I",
-      "D" : "I",
-      "E" : "I"
+      "C" : "I"
     },
-    "Q2" : {
+    "question two" : {
       "A" : "I",
       "B" : "C",
       "C" : "I"
     }
   }
+ 
 }

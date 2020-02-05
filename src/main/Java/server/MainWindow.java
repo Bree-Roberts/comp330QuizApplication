@@ -16,11 +16,11 @@ public class MainWindow {
   private static Scene mainScene = new Scene(mainLayout, 900, 600);
   private static Text questionOutput = new Text();
   private static ScrollPane questionOutputWindow = new ScrollPane();
-  private static Button test = new Button("Test Score");
+  private static Button test = new Button("Test");
   private static Label scoreBoard = new Label();
 
   public static Scene createMainWindow() {
-    mainLayout.setBottom(centerWindow);
+    mainLayout.setTop(centerWindow);
     centerWindow.getChildren().addAll(test);
     questionOutputWindow.setContent(questionOutput);
     mainLayout.setCenter(questionOutputWindow);
@@ -37,8 +37,12 @@ public class MainWindow {
     questionOutput.textProperty().bind(QuestionOutput.getQuestionOutputText());
 
     // binds test button (TEMP)
-    test.setOnAction(e -> ScoreBoard.addScore(10));
+    test.setOnAction(e -> UserInputs.getNextQuestion());
 
     return mainScene;
+  }
+
+  public static BorderPane getGameWindow() {
+    return mainLayout;
   }
 }
