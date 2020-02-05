@@ -1,93 +1,81 @@
 package server;
 
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 
 public class Output {
+  private ArrayList trueFalseEntries;
+  private ArrayList matchingEntries;
+  private ArrayList multipleChoiceEntries;
+  private int tfc, mc, mcc;
 
-  PrintStream out;
-
-  public Output(PrintStream out) {
-    this.out = out;
+  public Output(String fileName) throws IOException, ParseException {
+    Object obj = new JSONParser().parse(new FileReader(fileName));
+    Parser parser = new Parser(obj);
+    tfc = 0;
+    trueFalseEntries = new ArrayList<Map.Entry<String, String>>(parser.parseTrueFalse().entrySet());
+    mc = 0;
+    matchingEntries =
+        new ArrayList<Map.Entry<String, Map<String, String>>>(parser.parseMatching().entrySet());
+    mcc = 0;
+    multipleChoiceEntries =
+        new ArrayList<Map.Entry<String, Map<String, String>>>(
+            parser.parseMultipleChoice().entrySet());
   }
 
-  public int askTrueFalse(Map<String, String> ques, Scanner in) {
-    String answer;
-    int score = 0;
-    boolean valid;
-    out.println("Enter True or False: ");
-    Iterator<Map.Entry<String, String>> itr =
-        ques.entrySet()
-            .iterator(); // Creating iterator to go through map. Might be able to do with for loop
-                         // not sure which is better
-    while (itr.hasNext()) {
-      valid = false; // Boolean to only allow valid answers
-      Map.Entry<String, String> pair = itr.next(); // assigning the next entry in map to variable
-      out.print(pair.getKey() + ": ");
-      while (!valid) {
-        answer = in.nextLine(); // Get input
-        if (answer.equalsIgnoreCase("true")
-            || answer.equalsIgnoreCase(
-                "false")) { // If the response is True or False than its valid
-          if (answer.equalsIgnoreCase(
-              pair.getValue())) { // Check if it matches the answer from json file
-            out.println("Correct!");
-            score++;
-          } else {
-            out.println("Incorrect");
-          }
-          valid = true;
-        } else {
-          out.println("Please enter a valid response.");
+  public Map.Entry getQuestion(QTypes type) {
+    switch (type) {
+      case TRUE_FALSE:
+        return getTrueFalse();
+      case MATCHING:
+        return getMatching();
+      case MULTIPLE_CHOICE:
+        return getMultipleChoice();
+      case RANDOM:
+        switch ((int) (Math.random() * 3) + 1) {
+          case 1:
+            return getTrueFalse();
+          case 2:
+            return getMatching();
+          case 3:
+            return getMultipleChoice();
         }
-      }
+        return null;
+      default:
+        System.out.println("Enum error");
+        break;
     }
-    return score;
+    return null;
   }
 
-  public int askMatching(
-      Map<String, String> ques,
-      Scanner
-          in) { // Currently asks to match one at a time, cant do process of elimination like on
-                // paper. Could change this to allow for it
-    String answer;
-    int score = 0;
-    boolean valid;
-    ArrayList<String> words = new ArrayList<>(ques.size());
-    ArrayList<String> descriptions = new ArrayList<>(ques.size());
-    for (Map.Entry<String, String> pair :
-        ques
-            .entrySet()) { // Assign words and descriptions to separate arraylists so descriptions
-                           // can be randomized
-      words.add(pair.getKey());
-      descriptions.add(pair.getValue());
+  private Map.Entry<String, Map.Entry<String, String>> getTrueFalse() {
+    if (tfc < trueFalseEntries.size()) {
+      tfc++;
+      return new MyEntry("trueFalse", trueFalseEntries.get(tfc - 1));
     }
-    Collections.shuffle(descriptions); // Shuffles the list
+    return null;
+  }
 
-    out.println("Your words are: " + words.toString());
-    out.println("Match them to the following.");
-
-    for (String description : descriptions) { // Iterates through descriptions and prints them
-      out.print(description + " : ");
-      valid = false;
-      while (!valid) { // Similar process to true false to check valid responses
-        answer = in.nextLine();
-        if (!ques.containsKey(answer)) { // If the questions map doesnt contain the key
-          out.println("Please enter a valid response.");
-        } else if (ques.get(answer)
-            .equalsIgnoreCase(
-                description)) { // Checks the value associated to the key given against description
-                                // (Verified its in the map from first if)
-          out.println("Correct!");
-          score++;
-          valid = true;
-        } else {
-          out.println("Incorrect");
-          valid = true;
-        }
-      }
+  private Map.Entry<String, Map.Entry<ArrayList<String>, ArrayList<String>>> getMatching() {
+    // TODO add support for multiple matching sections
+    if (mc < matchingEntries.size()) {
+      mc++;
+      System.out.println(matchingEntries);
+      return new MyEntry("matching", matchingEntries.get(mc - 1));
     }
+    return null;
+  }
 
-    return score;
+  private Map.Entry<String, Map.Entry<String, Map<String, String>>> getMultipleChoice() {
+    if (mcc < multipleChoiceEntries.size()) {
+      mcc++;
+      return new MyEntry("multipleChoice", multipleChoiceEntries.get(mcc - 1));
+    }
+    return null;
   }
 }
