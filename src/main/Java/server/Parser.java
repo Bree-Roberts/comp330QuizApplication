@@ -2,6 +2,7 @@ package server;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
@@ -15,15 +16,31 @@ class Parser {
     this.obj = (JSONObject) obj;
   }
 
-  Map parseTrueFalse() {
-    return ((Map) obj.get("trueFalse"));
+  public ArrayList<TrueFalse> parseTrueFalse() {
+    Map<String, String> m = (Map) obj.get("trueFalse");
+    ArrayList<TrueFalse> trueFalse = new ArrayList<>();
+    for (Map.Entry<String, String> entry : m.entrySet()) {
+      trueFalse.add(new TrueFalse(entry.getKey(), entry.getValue()));
+    }
+    return trueFalse;
   }
 
-  Map parseMatching() {
-    return (Map) obj.get("matching");
+  public ArrayList<Matching> parseMatching() {
+    Map<String, Map<String, String>> m = (Map) obj.get("matching");
+    ArrayList<Matching> matching = new ArrayList<>();
+    for (Map.Entry<String, Map<String, String>> set : m.entrySet()) {
+      matching.add(new Matching(new ArrayList<>(set.getValue().entrySet())));
+    }
+    return matching;
   }
-  
-  Map parseMultipleChoice() {
-    return (Map) obj.get("multipleChoice");
+
+  public ArrayList<MultipleChoice> parseMultipleChoice() {
+    Map<String, Map<String, String>> m = (Map) obj.get("multipleChoice");
+    ArrayList<MultipleChoice> multipleChoice = new ArrayList<>();
+    for (Map.Entry<String, Map<String, String>> set : m.entrySet()) {
+      multipleChoice.add(
+          new MultipleChoice(set.getKey(), new ArrayList<>(set.getValue().entrySet())));
+    }
+    return multipleChoice;
   }
 }

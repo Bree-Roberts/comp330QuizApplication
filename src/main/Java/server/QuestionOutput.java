@@ -14,4 +14,10 @@ public class QuestionOutput {
   public static void setQuestionOutputText(String text) {
     questionOutputText.setValue(text);
   }
+
+  public static void addQuestionOutputText(String text) {
+    if (questionOutputText.getValue() == null) {
+      questionOutputText.setValue(text + "\n");
+    } else questionOutputText.setValue(questionOutputText.getValue() + text + "\n");
+  }
 }
