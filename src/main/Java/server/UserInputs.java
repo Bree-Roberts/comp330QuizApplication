@@ -28,6 +28,7 @@ public class UserInputs {
   public static void createTF() {
     HBox holder = new HBox();
     CheckBox trueCheck = new CheckBox();
+    trueCheck.setOnAction(e -> answerQuestion(QProcessor.checkAnswer("true", currentQuestion)));
     CheckBox falseCheck = new CheckBox();
     Label trueLabel = new Label("True");
     Label falseLabel = new Label("False");
@@ -85,5 +86,11 @@ public class UserInputs {
 
     holder.getChildren().addAll(left, right);
     MainWindow.getGameWindow().setBottom(holder);
+  }
+
+  public static void answerQuestion(boolean answer) {
+    if (answer) {
+      ScoreBoard.addScore(1);
+    }
   }
 }

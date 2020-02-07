@@ -13,7 +13,7 @@ public class TrueFalse implements Question {
   }
 
   @Override
-  public Enum getType() {
+  public QTypes getType() {
     return QTypes.TRUE_FALSE;
   }
 
@@ -23,7 +23,7 @@ public class TrueFalse implements Question {
   }
 
   @Override
-  public ArrayList getAnswers() {
+  public ArrayList<String> getAnswers() {
     return new ArrayList<String>(Arrays.asList(answer));
   }
 }

@@ -14,7 +14,7 @@ public class MultipleChoice implements Question {
   }
 
   @Override
-  public Enum getType() {
+  public QTypes getType() {
     return QTypes.MULTIPLE_CHOICE;
   }
 

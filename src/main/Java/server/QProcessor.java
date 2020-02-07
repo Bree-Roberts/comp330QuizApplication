@@ -41,15 +41,15 @@ public class QProcessor {
     }
   }
 
-  public static boolean checkAnswer(
-      String userAnswer, Question question, String matchingStatement) {
-    Enum type = question.getType();
+  public static boolean checkAnswer(String userAnswer, Question question) {
+    QTypes type = question.getType();
     if (QTypes.TRUE_FALSE.equals(type)) {
-      return userAnswer.equals(question.getAnswers().get(0));
+      return userAnswer.equalsIgnoreCase((String) question.getAnswers().get(0));
     } else if (QTypes.MATCHING.equals(type)) {
       Matching q = (Matching) question;
       for (Map.Entry<String, String> entry : q.getQuestionKey()) {
-        if (entry.getKey().equals(matchingStatement) && entry.getValue().equals(userAnswer)) {
+        if (entry.getKey().equalsIgnoreCase(q.getNextStatement())
+            && entry.getValue().equals(userAnswer)) {
           return true;
         }
       }
@@ -57,7 +57,7 @@ public class QProcessor {
     } else if (QTypes.MULTIPLE_CHOICE.equals(type)) {
       MultipleChoice q = (MultipleChoice) question;
       for (Map.Entry<String, String> entry : q.getAnswers()) {
-        if (userAnswer.equals(entry.getKey()) && entry.getValue().equals("C")) {
+        if (userAnswer.equalsIgnoreCase(entry.getKey()) && entry.getValue().equals("C")) {
           return true;
         }
       }
