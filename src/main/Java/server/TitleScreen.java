@@ -1,5 +1,6 @@
 package server;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +27,15 @@ public class TitleScreen {
     titleLayout.setTop(title);
     titleLayout.setCenter(titleSelect);
     titleSelect.getChildren().addAll(take, create, settings, exit);
+    titleLayout.setAlignment(title, Pos.CENTER);
+
+    // UI Formatting
+    titleSelect.setAlignment(Pos.CENTER);
+    titleSelect.setSpacing(10);
+    take.setMinSize(20, 40);
+    create.setMinSize(20, 40);
+    settings.setMinSize(20, 40);
+    exit.setMinSize(20, 40);
 
     return titleScreen;
   }

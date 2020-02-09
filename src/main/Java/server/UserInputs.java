@@ -2,12 +2,14 @@ package server;
 
 import java.util.ArrayList;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class UserInputs {
 
@@ -38,34 +40,68 @@ public class UserInputs {
     Label falseLabel = new Label("False");
     holder.getChildren().addAll(trueCheck, trueLabel, falseCheck, falseLabel);
     MainWindow.getGameWindow().setBottom(holder);
+
+    // formating
+    holder.setPrefHeight(200);
+    holder.setAlignment(Pos.CENTER);
+    trueCheck.setMinSize(20, 20);
+    falseCheck.setMinSize(20, 20);
+    trueLabel.setMinSize(20, 40);
+    trueLabel.setFont(new Font(24));
+    falseLabel.setFont(new Font(24));
+    falseLabel.setMinSize(20, 40);
   }
 
   public static void createMatch() {
     HBox holder = new HBox();
-    VBox left = new VBox();
-    VBox right = new VBox();
+    HBox left = new HBox();
+    HBox right = new HBox();
+    VBox leftStatements = new VBox();
+    VBox leftChoices = new VBox();
+    VBox rightStatements = new VBox();
+    VBox rightChoices = new VBox();
+
     Button submit = new Button("Submit");
-    submit.setOnAction(e -> submitMatching());
+    int alternate = 0;
     int matchingKeySize = ((Matching) currentQuestion).getMatchingKeySize();
 
+    submit.setOnAction(e -> submitMatching());
     matchList.clear();
 
     for (int i = 0; i < matchingKeySize; i++) {
 
       Label label = new Label(((Matching) currentQuestion).getNextMatchingKey());
+
+      // UI formatting
+      label.setMinSize(20, 40);
+      label.setFont(new Font(24));
+
       ComboBox<String> choices = new ComboBox<String>();
       matchList.add(choices);
 
       for (int f = 0; f < currentQuestion.getAnswers().size(); f++) {
         choices.getItems().add((String) currentQuestion.getAnswers().get(f));
       }
-
-      left.getChildren().add(label);
-      right.getChildren().add(choices);
+      if (alternate % 2 == 0) {
+        leftStatements.getChildren().add(label);
+        leftChoices.getChildren().add(choices);
+      } else {
+        rightStatements.getChildren().add(label);
+        rightChoices.getChildren().add(choices);
+      }
+      alternate++;
     }
-
+    left.getChildren().addAll(leftStatements, leftChoices);
+    right.getChildren().addAll(rightStatements, rightChoices);
     holder.getChildren().addAll(left, right, submit);
     MainWindow.getGameWindow().setBottom(holder);
+
+    // UI formating
+    holder.setPrefHeight(200);
+    holder.setAlignment(Pos.CENTER);
+    left.setAlignment(Pos.BASELINE_RIGHT);
+    right.setAlignment(Pos.BASELINE_LEFT);
+    right.setSpacing(10);
   }
 
   public static void createMC() {
@@ -81,6 +117,9 @@ public class UserInputs {
       button.setOnAction(
           e -> answerQuestion(QProcessor.checkAnswer(button.getText(), currentQuestion)));
 
+      // UI Formating
+      button.setMinSize(50, 50);
+
       if (alternate % 2 == 0) {
         left.getChildren().add(button);
       } else {
@@ -91,15 +130,23 @@ public class UserInputs {
 
     holder.getChildren().addAll(left, right);
     MainWindow.getGameWindow().setBottom(holder);
+
+    // UI Formatting
+    holder.setPrefHeight(200);
+    holder.setAlignment(Pos.CENTER);
+    left.setAlignment(Pos.BASELINE_RIGHT);
+    right.setAlignment(Pos.BASELINE_LEFT);
+    right.setSpacing(10);
+    left.setSpacing(10);
   }
 
   public static void answerQuestion(boolean answer) {
     MainWindow.getGameWindow().setBottom(null);
     if (answer) {
-      QuestionOutput.addQuestionOutputText("Correct!");
+      MainWindow.setCorrect();
       ScoreBoard.addScore(10);
     } else {
-      QuestionOutput.addQuestionOutputText("Incorrect!");
+      MainWindow.setIncorrect();
     }
     getNextQuestion();
   }
