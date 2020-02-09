@@ -5,21 +5,22 @@ import java.util.Collections;
 import java.util.Map;
 
 public class Matching implements Question {
-  private ArrayList<String> statements;
+  private String statement;
+  private ArrayList<String> matchingKey;
   private ArrayList<String> answers;
   private ArrayList<String> tempArray, tempArrayTwo;
-  private ArrayList<Map.Entry<String, String>> questionKey;
 
-  public Matching(ArrayList<Map.Entry<String, String>> questions) {
-    statements = new ArrayList<>();
+  public Matching(String statement, ArrayList<Map.Entry<String, String>> questions) {
+    this.statement = statement;
+    matchingKey = new ArrayList<>();
     answers = new ArrayList<>();
-    questionKey = questions;
-    tempArray = statements;
-    for (Map.Entry<String, String> question : questions) {
-      statements.add(question.getKey());
-      answers.add(question.getValue());
+
+    for (int i = 0; i < questions.size(); i++) {
+      matchingKey.add(questions.get(i).getKey());
+      answers.add(questions.get(i).getValue());
     }
-    Collections.shuffle(answers);
+    tempArray = matchingKey;
+    tempArrayTwo = matchingKey;
   }
 
   @Override
@@ -29,12 +30,7 @@ public class Matching implements Question {
 
   @Override
   public String getStatement() {
-    String temp = null;
-    if (!tempArray.isEmpty()) {
-      temp = tempArray.get(0);
-      tempArray.remove(0);
-    }
-    return temp;
+    return statement;
   }
 
   public String getNextStatement() {
@@ -46,16 +42,25 @@ public class Matching implements Question {
     return temp;
   }
 
+  public String getNextMatchingKey() {
+    String temp = null;
+    if (!tempArray.isEmpty()) {
+      temp = tempArray.get(0);
+      tempArray.remove(0);
+    }
+    return temp;
+  }
+
   @Override
   public ArrayList<String> getAnswers() {
     return answers;
   }
 
-  public ArrayList<Map.Entry<String, String>> getQuestionKey() {
-    return questionKey;
+  public ArrayList<String> getMatchingKey() {
+    return matchingKey;
   }
 
-  public int getStatementSize() {
-    return statements.size();
+  public int getMatchingKeySize() {
+    return matchingKey.size();
   }
 }

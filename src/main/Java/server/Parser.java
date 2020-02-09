@@ -19,6 +19,7 @@ class Parser {
   public ArrayList<TrueFalse> parseTrueFalse() {
     Map<String, String> m = (Map) obj.get("trueFalse");
     ArrayList<TrueFalse> trueFalse = new ArrayList<>();
+
     for (Map.Entry<String, String> entry : m.entrySet()) {
       trueFalse.add(new TrueFalse(entry.getKey(), entry.getValue()));
     }
@@ -29,7 +30,7 @@ class Parser {
     Map<String, Map<String, String>> m = (Map) obj.get("matching");
     ArrayList<Matching> matching = new ArrayList<>();
     for (Map.Entry<String, Map<String, String>> set : m.entrySet()) {
-      matching.add(new Matching(new ArrayList<>(set.getValue().entrySet())));
+      matching.add(new Matching(set.getKey(), new ArrayList<>(set.getValue().entrySet())));
     }
     return matching;
   }

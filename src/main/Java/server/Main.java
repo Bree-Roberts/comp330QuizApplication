@@ -32,8 +32,7 @@ public class Main extends Application {
 
   public void start(Stage primaryStage) throws Exception {
 
-    QProcessor tester =
-        new QProcessor("C:/Users/Brian/git/comp330QuizApplication/TestQProcessor.json");
+    QProcessor tester = new QProcessor("TestQProcessor.json");
 
     // Quiz Elements
     primaryStage.setTitle("Quiz Game");
@@ -41,7 +40,6 @@ public class Main extends Application {
 
     // Button Functions
     TitleScreen.setTakeButton(primaryStage);
-
     primaryStage.show();
   }
 }

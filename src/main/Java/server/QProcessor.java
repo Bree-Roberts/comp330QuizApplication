@@ -15,7 +15,7 @@ public class QProcessor {
   private ArrayList<Matching> matching;
   private ArrayList<MultipleChoice> multipleChoice;
   private static final ArrayList<Question> mixed = new ArrayList<>();
-  private static int counter;
+  private static int counter = 0;
 
   public QProcessor(String fileName) throws IOException, ParseException {
     Object obj = new JSONParser().parse(new FileReader(fileName));
@@ -28,32 +28,35 @@ public class QProcessor {
     mixed.addAll(parser.parseMatching());
     mixed.addAll(parser.parseMultipleChoice());
     Collections.shuffle(mixed);
-
-    counter = 0;
   }
 
   public static Question getQuestion() {
-    if (counter < mixed.size()) {
-      counter++;
-      return mixed.get(counter - 1);
-    } else {
-      return null;
-    }
+    if (!mixed.isEmpty()) {
+      Question temp = mixed.get(0);
+      mixed.remove(0);
+      return temp;
+    } else return null;
+  }
+
+  public static void resetCounter() {
+    counter = 0;
   }
 
   public static boolean checkAnswer(String userAnswer, Question question) {
     QTypes type = question.getType();
+
     if (QTypes.TRUE_FALSE.equals(type)) {
       return userAnswer.equalsIgnoreCase((String) question.getAnswers().get(0));
     } else if (QTypes.MATCHING.equals(type)) {
-      Matching q = (Matching) question;
-      for (Map.Entry<String, String> entry : q.getQuestionKey()) {
-        if (entry.getKey().equalsIgnoreCase(q.getNextStatement())
-            && entry.getValue().equals(userAnswer)) {
-          return true;
-        }
+
+      if (question.getAnswers().get(counter).equals(userAnswer)) {
+        counter++;
+        return true;
+      } else {
+        counter++;
+        return false;
       }
-      return false;
+
     } else if (QTypes.MULTIPLE_CHOICE.equals(type)) {
       MultipleChoice q = (MultipleChoice) question;
       for (Map.Entry<String, String> entry : q.getAnswers()) {
