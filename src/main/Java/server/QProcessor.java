@@ -70,4 +70,10 @@ public class QProcessor {
       return false;
     }
   }
+
+  public static Boolean mixedHasNext() {
+    if (!mixed.isEmpty()) {
+      return true;
+    } else return false;
+  }
 }

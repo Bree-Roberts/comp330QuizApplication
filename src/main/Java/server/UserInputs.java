@@ -2,6 +2,7 @@ package server;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -17,17 +18,19 @@ public class UserInputs {
   private static ArrayList<ComboBox<String>> matchList = new ArrayList<ComboBox<String>>();
 
   public static void getNextQuestion() {
-    currentQuestion = QProcessor.getQuestion();
-    QuestionOutput.setQuestionOutputText(currentQuestion.getStatement());
 
-    if (currentQuestion.getType() == QTypes.TRUE_FALSE) {
-      createTF();
-    } else if (currentQuestion.getType() == QTypes.MATCHING) {
-      createMatch();
+    if (QProcessor.mixedHasNext()) {
+      currentQuestion = QProcessor.getQuestion();
+      QuestionOutput.setQuestionOutputText(currentQuestion.getStatement());
+      if (currentQuestion.getType() == QTypes.TRUE_FALSE) {
+        createTF();
+      } else if (currentQuestion.getType() == QTypes.MATCHING) {
+        createMatch();
 
-    } else if (currentQuestion.getType() == QTypes.MULTIPLE_CHOICE) {
-      createMC();
-    }
+      } else if (currentQuestion.getType() == QTypes.MULTIPLE_CHOICE) {
+        createMC();
+      }
+    } else Platform.exit();
   }
 
   public static void createTF() {

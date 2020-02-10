@@ -26,10 +26,10 @@ public class MainWindow {
     mainLayout.setTop(topWindow);
     mainLayout.setCenter(textBox);
     mainLayout.setRight(scoreBoard);
-    
+
     textBox.getChildren().addAll(questionOutput);
     topWindow.getChildren().addAll(correctIncorrect);
-    
+
     // UI formatting
     questionOutput.setFont(new Font(20));
     questionOutput.setWrappingWidth(620);
