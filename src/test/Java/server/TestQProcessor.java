@@ -18,22 +18,23 @@ public class TestQProcessor {
 
   @Test
   public void testGetQuestion() {
-    assertNotNull(processor.getQuestion());
+    assertNotNull(QProcessor.getQuestion());
   }
 
   @Test
   public void testCheckAnswerTrueFalse() {
     TrueFalse q = new TrueFalse("this is true", "true");
-    assertTrue(processor.checkAnswer("true", q, null));
+    assertTrue(QProcessor.checkAnswer("true", q));
   }
 
   @Test
   public void testCheckAnswerMatching() {
     Matching q =
         new Matching(
+            "Match these to their definitions",
             new ArrayList<>(
                 Arrays.asList(new MyEntry<>("red", "red"), new MyEntry<>("blue", "blue"))));
-    assertTrue(processor.checkAnswer("red", q, "red"));
+    assertTrue(QProcessor.checkAnswer("red", q));
   }
 
   @Test
@@ -44,6 +45,6 @@ public class TestQProcessor {
             new ArrayList<>(
                 Arrays.asList(
                     new MyEntry<>("A", "I"), new MyEntry<>("B", "C"), new MyEntry<>("C", "I"))));
-    assertTrue(processor.checkAnswer("B", q, null));
+    assertTrue(QProcessor.checkAnswer("B", q));
   }
 }
