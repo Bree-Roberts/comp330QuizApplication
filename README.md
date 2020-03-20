@@ -5,10 +5,10 @@ Install the Scala plugin for IntelliJ:
 * Go to Settings
 * Select Plugins
 * Search for Scala (Recommend installing the plugin with the most downloads)
-Fork project from github and download the project. 
-In IntelliJ select Open
-Navigate to the top-level folder of the project and click Ok.
-This should open up the Import Project from SBT window:
+ /n Fork project from github and download the project. 
+/n In IntelliJ select Open
+/n Navigate to the top-level folder of the project and click Ok.
+/n This should open up the Import Project from SBT window:
  * Enable use auto-import
  * enable Sources.
  * disable Javadocs and Sources for SBT and plugins.
